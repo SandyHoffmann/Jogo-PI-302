@@ -1,5 +1,5 @@
 import pygame
-
+from historia import Historia
 pygame.init()
 ALTURA=1200
 LARGURA=800
@@ -195,6 +195,8 @@ class Jogo(object):
         self.win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
         self.win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
         self.win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
+        classe=Historia(1,1,1)
+        classe.historia(1,self.win)
 
 def main():
     jogo = Jogo(1200,800)

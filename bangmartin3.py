@@ -145,55 +145,55 @@ while True :
             lista_lugares[lista_num][1]=mousepos[1]-diference[1]
 
     
-    win.fill((20,20,180))
-    win.blit(background,(0,0))
-    win.blit(quadrado_quant,(tamanhos_quad[0]))
-    win.blit(quadrado_quant,(tamanhos_quad[1]))
-    win.blit(quadrado_quant,(tamanhos_quad[2]))
-    win.blit(quadrado_quant,(tamanhos_quad[3]))
-    win.blit(quadrado_quant,(tamanhos_quad[4]))
-    win.blit(mandar,(10,30))
-    win.blit(reset,(10,90))
-    win.blit(salty,(lista_lugares[0]))
-    win.blit(candy,(lista_lugares[1]))
-    win.blit(sour,(lista_lugares[2]))
-    win.blit(hot,(lista_lugares[3]))
-    win.blit(tasty,(lista_lugares[4]))
+        win.fill((20,20,180))
+        win.blit(background,(0,0))
+        win.blit(quadrado_quant,(tamanhos_quad[0]))
+        win.blit(quadrado_quant,(tamanhos_quad[1]))
+        win.blit(quadrado_quant,(tamanhos_quad[2]))
+        win.blit(quadrado_quant,(tamanhos_quad[3]))
+        win.blit(quadrado_quant,(tamanhos_quad[4]))
+        win.blit(mandar,(10,30))
+        win.blit(reset,(10,90))
+        win.blit(salty,(lista_lugares[0]))
+        win.blit(candy,(lista_lugares[1]))
+        win.blit(sour,(lista_lugares[2]))
+        win.blit(hot,(lista_lugares[3]))
+        win.blit(tasty,(lista_lugares[4]))
 
-    text=font.render(str(qt1), True, (255, 255, 255))
-    win.blit(text,(tamanhos_quad[0][0]+75,tamanhos_quad[0][1]+70))
+        text=font.render(str(qt1), True, (255, 255, 255))
+        win.blit(text,(tamanhos_quad[0][0]+75,tamanhos_quad[0][1]+70))
 
-    text2=font.render(str(qt2), True, (255, 255, 255))
-    win.blit(text2,(tamanhos_quad[1][0]+75,tamanhos_quad[1][1]+70))
+        text2=font.render(str(qt2), True, (255, 255, 255))
+        win.blit(text2,(tamanhos_quad[1][0]+75,tamanhos_quad[1][1]+70))
 
-    text3=font.render(str(qt3), True, (255, 255, 255))
-    win.blit(text3,(tamanhos_quad[2][0]+75,tamanhos_quad[2][1]+70))
+        text3=font.render(str(qt3), True, (255, 255, 255))
+        win.blit(text3,(tamanhos_quad[2][0]+75,tamanhos_quad[2][1]+70))
 
-    text4=font.render(str(qt4), True, (255, 255, 255))
-    win.blit(text4,(tamanhos_quad[3][0]+75,tamanhos_quad[3][1]+70))
+        text4=font.render(str(qt4), True, (255, 255, 255))
+        win.blit(text4,(tamanhos_quad[3][0]+75,tamanhos_quad[3][1]+70))
 
-    text5=font.render(str(qt5), True, (255, 255, 255))
-    win.blit(text5,(tamanhos_quad[4][0]+75,tamanhos_quad[4][1]+70))
+        text5=font.render(str(qt5), True, (255, 255, 255))
+        win.blit(text5,(tamanhos_quad[4][0]+75,tamanhos_quad[4][1]+70))
 
-    if tela_certo!=0:
-        if tela_certo==1:
-            win.blit(tela_sea,(LARGURA//2-100,ALTURA//2-300))
-        if tela_certo==2:
-            win.blit(tela_heavy,(LARGURA//2-100,ALTURA//2-300))
-        if tela_certo==3:
-            win.blit(tela_sugar,(LARGURA//2-100,ALTURA//2-300))
-        if tela_certo==4:
-            win.blit(tela_nao_deu,(LARGURA//2-100,ALTURA//2-300))
-        for event in pygame.event.get() : 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                tela_certo=0
+        if tela_certo!=0:
+            if tela_certo==1:
+                win.blit(tela_sea,(LARGURA//2-100,ALTURA//2-300))
+            if tela_certo==2:
+                win.blit(tela_heavy,(LARGURA//2-100,ALTURA//2-300))
+            if tela_certo==3:
+                win.blit(tela_sugar,(LARGURA//2-100,ALTURA//2-300))
+            if tela_certo==4:
+                win.blit(tela_nao_deu,(LARGURA//2-100,ALTURA//2-300))
+            for event in pygame.event.get() : 
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    tela_certo=0
 
 
-    win.blit(salty,(tamanhos_quad[0][0]+20,tamanhos_quad[0][1]+10))
-    win.blit(candy,(tamanhos_quad[1][0]+20,tamanhos_quad[1][1]+10))
-    win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
-    win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
-    win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
+        win.blit(salty,(tamanhos_quad[0][0]+20,tamanhos_quad[0][1]+10))
+        win.blit(candy,(tamanhos_quad[1][0]+20,tamanhos_quad[1][1]+10))
+        win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
+        win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
+        win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
 
 
     pygame.display.update()
