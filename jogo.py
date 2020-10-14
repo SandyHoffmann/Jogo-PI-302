@@ -23,7 +23,7 @@ tela_sea=pygame.image.load("imagens/seawater.png")
 tela_heavy=pygame.image.load("imagens/heavydrink.png")
 tela_sugar=pygame.image.load("imagens/sugarrush.png")
 tela_nao_deu=pygame.image.load("imagens/naodeucerto.png")
-
+tela_falas=pygame.image.load("imagens/quadradofalas.png")
 class Jogo(object):
 
     def __init__(self,ALTURA,LARGURA):
@@ -160,7 +160,7 @@ class Jogo(object):
         self.win.blit(sour,(self.lista_lugares[2]))
         self.win.blit(hot,(self.lista_lugares[3]))
         self.win.blit(tasty,(self.lista_lugares[4]))
-
+        self.win.blit(tela_falas,(120,580))
         text=font.render(str(self.bebida_1), True, (255, 255, 255))
         self.win.blit(text,(tamanhos_quad[0][0]+75,tamanhos_quad[0][1]+70))
 
