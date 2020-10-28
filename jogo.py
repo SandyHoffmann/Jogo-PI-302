@@ -1,5 +1,7 @@
 import pygame
 from historia import Historia
+import textboxify
+
 pygame.init()
 ALTURA=1200
 LARGURA=800
@@ -24,6 +26,8 @@ tela_heavy=pygame.image.load("imagens/heavydrink.png")
 tela_sugar=pygame.image.load("imagens/sugarrush.png")
 tela_nao_deu=pygame.image.load("imagens/naodeucerto.png")
 tela_falas=pygame.image.load("imagens/quadradofalas.png")
+mouse = pygame.mouse.get_pressed()
+
 class Jogo(object):
 
     def __init__(self,ALTURA,LARGURA):
@@ -42,6 +46,11 @@ class Jogo(object):
         self.carregando = False
         self.musica_bebida=5
         self.lista_lugares=[[480,280],[540,292],[590,300],[635,290],[665,310]]
+        self.ponto_de_parada=0
+        self.tempo=0
+        self.tempo_dialogo=0
+        self.relogio=1
+        self.texto_anterior="-"
 
     def main(self):
         display_surface = pygame.display.set_mode((self.altura, self.largura)) 
@@ -68,6 +77,7 @@ class Jogo(object):
                                 self.bebida_4=0
                                 self.bebida_5=0
                                 self.tela_certa=1
+                                self.ponto_de_parada=1
 
                             elif self.bebida_3>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2) and self.bebida_4>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2): 
                                 print("Heavy Drink")
@@ -104,6 +114,7 @@ class Jogo(object):
                             self.bebida_4=0
                             self.bebida_5=0
                             
+
             pygame.display.update()  
 
             if mouse == (1,0,0):
@@ -195,8 +206,26 @@ class Jogo(object):
         self.win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
         self.win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
         self.win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
-        classe=Historia(1,1,1)
-        classe.historia(1,self.win)
+        if self.ponto_de_parada==1:
+            classe=Historia(self.ponto_de_parada,1,1)
+            texto1=classe.historia(self.ponto_de_parada)
+            contadorfixo=25
+            if len(texto1)*contadorfixo>self.tempo*contadorfixo:
+                self.tempo_dialogo+=5
+                print(self.tempo_dialogo)
+                contador=self.relogio
+                if self.tempo_dialogo>contadorfixo*self.relogio:
+                    self.relogio+=1
+                    self.tempo+=1
+                save = self.texto_anterior
+                if (self.relogio>contador or self.tempo_dialogo==5) and len(texto1)*contadorfixo>self.tempo*contadorfixo:
+                    texto_cortado=texto1[self.tempo]
+                    print(self.tempo)
+                    print("bruh")
+                    self.texto_anterior+=texto_cortado
+                    print(self.texto_anterior)
+            textofinal=font.render(self.texto_anterior, True, (255, 255, 255))
+            self.win.blit(textofinal,(200,600))
 
 def main():
     jogo = Jogo(1200,800)
