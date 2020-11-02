@@ -28,6 +28,7 @@ tela_nao_deu=pygame.image.load("imagens/naodeucerto.png")
 tela_falas=pygame.image.load("imagens/quadradofalas.png")
 mouse = pygame.mouse.get_pressed()
 
+
 class Jogo(object):
 
     def __init__(self,ALTURA,LARGURA):
@@ -51,6 +52,7 @@ class Jogo(object):
         self.tempo_dialogo=0
         self.relogio=1
         self.texto_anterior="-"
+        self.botao_pressionado = False
 
     def main(self):
         display_surface = pygame.display.set_mode((self.altura, self.largura)) 
@@ -67,54 +69,54 @@ class Jogo(object):
                     pygame.quit() 
                     quit()  
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if mousepos[0]>10 and mousepos[0]<10+100:
-                        if mousepos[1]>30 and mousepos[1]<30+50:
-                            if self.bebida_1>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.6): 
-                                print("Sea Water")
-                                self.bebida_1=0
-                                self.bebida_2=0
-                                self.bebida_3=0
-                                self.bebida_4=0
-                                self.bebida_5=0
-                                self.tela_certa=1
-                                self.ponto_de_parada=1
-
-                            elif self.bebida_3>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2) and self.bebida_4>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2): 
-                                print("Heavy Drink")
-                                self.bebida_1=0
-                                self.bebida_2=0
-                                self.bebida_3=0
-                                self.bebida_4=0
-                                self.bebida_5=0
-                                self.tela_certa=2
-
-                            elif self.bebida_2>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.8): 
-                                print("Sugar Rush")
-                                self.bebida_1=0
-                                self.bebida_2=0
-                                self.bebida_3=0
-                                self.bebida_4=0
-                                self.bebida_5=0
-                                self.tela_certa=3
-
-                            else:
-                                print("Nada deu certo")
-                                self.bebida_1=0
-                                self.bebida_2=0
-                                self.bebida_3=0
-                                self.bebida_4=0
-                                self.bebida_5=0
-                                self.tela_certa=4
+                    self.botao_pressionado = True
                     
-                    if mousepos[0]>10 and mousepos[0]<10+100:
+                elif event.type != pygame.MOUSEBUTTONDOWN:        
+                    self.botao_pressionado = False
+
+                if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
+                    if mousepos[1]>30 and mousepos[1]<30+50:
+                        if self.bebida_1>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.6): 
+                            print("Sea Water")
+                            self.bebida_1=0
+                            self.bebida_2=0
+                            self.bebida_3=0
+                            self.bebida_4=0
+                            self.bebida_5=0
+                            self.tela_certa=1
+                            self.ponto_de_parada=1
+                        elif self.bebida_3>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2) and self.bebida_4>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2): 
+                            print("Heavy Drink")
+                            self.bebida_1=0
+                            self.bebida_2=0
+                            self.bebida_3=0
+                            self.bebida_4=0
+                            self.bebida_5=0
+                            self.tela_certa=2
+                        elif self.bebida_2>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.8): 
+                            print("Sugar Rush")
+                            self.bebida_1=0
+                            self.bebida_2=0
+                            self.bebida_3=0
+                            self.bebida_4=0
+                            self.bebida_5=0
+                            self.tela_certa=3
+                        else:
+                            print("Nada deu certo")
+                            self.bebida_1=0
+                            self.bebida_2=0
+                            self.bebida_3=0
+                            self.bebida_4=0
+                            self.bebida_5=0
+                            self.tela_certa=4
+                    
+                    if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
                         if mousepos[1]>90 and mousepos[1]<90+50:
                             self.bebida_1=0
                             self.bebida_2=0
                             self.bebida_3=0
                             self.bebida_4=0
                             self.bebida_5=0
-                            
-
             pygame.display.update()  
 
             if mouse == (1,0,0):
@@ -199,6 +201,7 @@ class Jogo(object):
             for event in pygame.event.get() : 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     self.tela_certa=0
+                    
 
 
         self.win.blit(salty,(tamanhos_quad[0][0]+20,tamanhos_quad[0][1]+10))
@@ -206,10 +209,18 @@ class Jogo(object):
         self.win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
         self.win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
         self.win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
+        
         if self.ponto_de_parada==1:
             classe=Historia(self.ponto_de_parada,1,1)
             texto1=classe.historia(self.ponto_de_parada)
             contadorfixo=25
+            if (len(texto1)*contadorfixo<=self.tempo*contadorfixo) and self.botao_pressionado == True:
+                self.ponto_de_parada=0
+                self.tempo=0
+                self.tempo_dialogo=0
+                self.relogio=1
+                self.texto_anterior="-"
+                self.ponto_de_parada=0
             if len(texto1)*contadorfixo>self.tempo*contadorfixo:
                 self.tempo_dialogo+=5
                 print(self.tempo_dialogo)
