@@ -1,6 +1,7 @@
 import pygame
 from historia import Historia
 import textboxify
+from personagem import Personagem
 
 pygame.init()
 ALTURA=1200
@@ -53,6 +54,7 @@ class Jogo(object):
         self.relogio=1
         self.texto_anterior="-"
         self.botao_pressionado = False
+        self.frameinit=0
 
     def main(self):
         display_surface = pygame.display.set_mode((self.altura, self.largura)) 
@@ -209,11 +211,21 @@ class Jogo(object):
         self.win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
         self.win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
         self.win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
-        
+        classepersonagem= Personagem()
+        maga = classepersonagem.main()
+
         if self.ponto_de_parada==1:
             classe=Historia(self.ponto_de_parada,1,1)
             texto1=classe.historia(self.ponto_de_parada)
-            contadorfixo=25
+            contadorfixo=15
+            framesanimação=(len(maga))
+            if self.tempo_dialogo>5*self.tempo or self.tempo_dialogo==0:
+                if self.frameinit<framesanimação-1:                
+                    self.frameinit+=1
+                    print(self.frameinit)
+                else:
+                    self.frameinit=0
+                self.win.blit(maga[self.frameinit], (100,325))
             if (len(texto1)*contadorfixo<=self.tempo*contadorfixo) and self.botao_pressionado == True:
                 self.ponto_de_parada=0
                 self.tempo=0
@@ -223,7 +235,6 @@ class Jogo(object):
                 self.ponto_de_parada=0
             if len(texto1)*contadorfixo>self.tempo*contadorfixo:
                 self.tempo_dialogo+=5
-                print(self.tempo_dialogo)
                 contador=self.relogio
                 if self.tempo_dialogo>contadorfixo*self.relogio:
                     self.relogio+=1
@@ -231,10 +242,9 @@ class Jogo(object):
                 save = self.texto_anterior
                 if (self.relogio>contador or self.tempo_dialogo==5) and len(texto1)*contadorfixo>self.tempo*contadorfixo:
                     texto_cortado=texto1[self.tempo]
-                    print(self.tempo)
-                    print("bruh")
                     self.texto_anterior+=texto_cortado
-                    print(self.texto_anterior)
+
+
             textofinal=font.render(self.texto_anterior, True, (255, 255, 255))
             self.win.blit(textofinal,(200,600))
 
