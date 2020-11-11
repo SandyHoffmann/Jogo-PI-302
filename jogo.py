@@ -175,7 +175,6 @@ class Jogo(object):
         self.win.blit(sour,(self.lista_lugares[2]))
         self.win.blit(hot,(self.lista_lugares[3]))
         self.win.blit(tasty,(self.lista_lugares[4]))
-        self.win.blit(tela_falas,(120,580))
         text=font.render(str(self.bebida_1), True, (255, 255, 255))
         self.win.blit(text,(tamanhos_quad[0][0]+75,tamanhos_quad[0][1]+70))
 
@@ -246,6 +245,7 @@ class Jogo(object):
 
 
             textofinal=font.render(self.texto_anterior, True, (255, 255, 255))
+            self.win.blit(tela_falas,(120,580))
             self.win.blit(textofinal,(200,600))
 
 def main():
