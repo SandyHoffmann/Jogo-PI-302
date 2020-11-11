@@ -2,6 +2,7 @@ import pygame
 from historia import Historia
 import textboxify
 from personagem import Personagem
+from parametros import Grupo_Parametros
 
 pygame.init()
 ALTURA=1200
@@ -55,6 +56,7 @@ class Jogo(object):
         self.texto_anterior="-"
         self.botao_pressionado = False
         self.frameinit=0
+        self.classe_parametros = Grupo_Parametros(0,0,0)
 
     def main(self):
         display_surface = pygame.display.set_mode((self.altura, self.largura)) 
@@ -87,6 +89,9 @@ class Jogo(object):
                             self.bebida_5=0
                             self.tela_certa=1
                             self.ponto_de_parada=1
+                            self.classe_parametros.set_clerigo(2)
+                            self.classe_parametros.get_clerigo()
+                            print(str(self.classe_parametros.get_clerigo()))
                         elif self.bebida_3>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2) and self.bebida_4>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2): 
                             print("Heavy Drink")
                             self.bebida_1=0
@@ -221,7 +226,6 @@ class Jogo(object):
             if self.tempo_dialogo>5*self.tempo or self.tempo_dialogo==0:
                 if self.frameinit<framesanimação-1:                
                     self.frameinit+=1
-                    print(self.frameinit)
                 else:
                     self.frameinit=0
                 self.win.blit(maga[self.frameinit], (100,325))
