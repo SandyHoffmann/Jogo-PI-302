@@ -6,6 +6,16 @@ class Historia():
 
     def historia(self,ponto_de_parada):
         if ponto_de_parada==1:
-            texcompleto = "Ola bartender"
+            texcompleto = "Ola bartender, me vê uma Sea Water."
             return texcompleto
+        if ponto_de_parada==2:
+            texcompleto = "Ola bartender, me vê uma Heavy Drink."
+            return texcompleto
+        if ponto_de_parada==3:
+            texcompleto = "Ola bartender, me vê uma Sugar Rush."
+            return texcompleto
+
+
+
+
 
