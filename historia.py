@@ -18,4 +18,6 @@ class Historia():
 
 
 
+            texcompleto = "Ola bartender"
+            return texcompleto
 
