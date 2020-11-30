@@ -6,7 +6,6 @@ class Historia():
 
     def historia(self,ponto_de_parada):
         if ponto_de_parada==1:
-<<<<<<< HEAD
             texcompleto = "Ola bartender, me ve um Sea Water."
             return texcompleto
         if ponto_de_parada==2:
@@ -19,8 +18,6 @@ class Historia():
 
 
 
-=======
             texcompleto = "Ola bartender"
             return texcompleto
->>>>>>> parent of b9fcc39... historia e moeda
 

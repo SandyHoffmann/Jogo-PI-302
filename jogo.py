@@ -3,6 +3,7 @@ from historia import Historia
 import textboxify
 from personagem import Personagem
 from parametros import Grupo_Parametros
+import random
 
 pygame.init()
 ALTURA=1200
@@ -28,6 +29,7 @@ tela_heavy=pygame.image.load("imagens/heavydrink.png")
 tela_sugar=pygame.image.load("imagens/sugarrush.png")
 tela_nao_deu=pygame.image.load("imagens/naodeucerto.png")
 tela_falas=pygame.image.load("imagens/quadradofalas.png")
+moeda=pygame.image.load("imagens/moeda.png")
 mouse = pygame.mouse.get_pressed()
 
 
@@ -57,13 +59,10 @@ class Jogo(object):
         self.botao_pressionado = False
         self.frameinit=0
         self.classe_parametros = Grupo_Parametros(0,0,0)
-<<<<<<< HEAD
         self.quantidade_bebidas = 0   
         self.ativar_dialogo = True    
         self.bebidas_sucedidas = 0
         self.menu = True   
-=======
->>>>>>> parent of b9fcc39... historia e moeda
 
     def main(self):
         display_surface = pygame.display.set_mode((self.altura, self.largura)) 
@@ -73,10 +72,10 @@ class Jogo(object):
     
     def update(self):
         while True:
-            mouse = pygame.mouse.get_pressed()
-            mousepos=pygame.mouse.get_pos()
-            for event in pygame.event.get() :
 
+            for event in pygame.event.get():
+                mouse = pygame.mouse.get_pressed()
+                mousepos=pygame.mouse.get_pos()
                 if event.type == pygame.QUIT : 
                     pygame.quit() 
                     quit()  
@@ -85,11 +84,10 @@ class Jogo(object):
                         self.menu=False
                         print("a")
 
-<<<<<<< HEAD
-                elif self.menu==False:
+                if self.menu==False:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         self.botao_pressionado = True
-                    
+                        
                     elif event.type != pygame.MOUSEBUTTONDOWN:        
                         self.botao_pressionado = False
                     if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
@@ -143,119 +141,112 @@ class Jogo(object):
                                 self.bebida_5=0
                                 self.tela_certa=4
                         
-                        if mousepos[1]>90 and mousepos[1]<90+50:
-=======
-                if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
-                    if mousepos[1]>30 and mousepos[1]<30+50:
-                        if self.bebida_1>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.6): 
-                            print("Sea Water")
-                            self.bebida_1=0
-                            self.bebida_2=0
-                            self.bebida_3=0
-                            self.bebida_4=0
-                            self.bebida_5=0
-                            self.tela_certa=1
-                            self.ponto_de_parada=1
-                            self.classe_parametros.set_clerigo(2)
-                            self.classe_parametros.get_clerigo()
-                            print(str(self.classe_parametros.get_clerigo()))
-                        elif self.bebida_3>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2) and self.bebida_4>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2): 
-                            print("Heavy Drink")
-                            self.bebida_1=0
-                            self.bebida_2=0
-                            self.bebida_3=0
-                            self.bebida_4=0
-                            self.bebida_5=0
-                            self.tela_certa=2
-                        elif self.bebida_2>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.8): 
-                            print("Sugar Rush")
-                            self.bebida_1=0
-                            self.bebida_2=0
-                            self.bebida_3=0
-                            self.bebida_4=0
-                            self.bebida_5=0
-                            self.tela_certa=3
-                        else:
-                            print("Nada deu certo")
->>>>>>> parent of b9fcc39... historia e moeda
-                            self.bebida_1=0
-                            self.bebida_2=0
-                            self.bebida_3=0
-                            self.bebida_4=0
-                            self.bebida_5=0
-<<<<<<< HEAD
-                pygame.display.update()  
-=======
-                            self.tela_certa=4
-                    
-                    if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
-                        if mousepos[1]>90 and mousepos[1]<90+50:
-                            self.bebida_1=0
-                            self.bebida_2=0
-                            self.bebida_3=0
-                            self.bebida_4=0
-                            self.bebida_5=0
-            pygame.display.update()  
->>>>>>> parent of b9fcc39... historia e moeda
+                    if mousepos[1]>90 and mousepos[1]<90+50:
+                        if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
+                            if mousepos[1]>30 and mousepos[1]<30+50:
+                                if self.bebida_1>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.6): 
+                                    print("Sea Water")
+                                    self.bebida_1=0
+                                    self.bebida_2=0
+                                    self.bebida_3=0
+                                    self.bebida_4=0
+                                    self.bebida_5=0
+                                    self.tela_certa=1
+                                    self.ponto_de_parada=1
+                                    self.classe_parametros.set_clerigo(2)
+                                    self.classe_parametros.get_clerigo()
+                                    print(str(self.classe_parametros.get_clerigo()))
+                                elif self.bebida_3>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2) and self.bebida_4>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2): 
+                                    print("Heavy Drink")
+                                    self.bebida_1=0
+                                    self.bebida_2=0
+                                    self.bebida_3=0
+                                    self.bebida_4=0
+                                    self.bebida_5=0
+                                    self.tela_certa=2
+                                elif self.bebida_2>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.8): 
+                                    print("Sugar Rush")
+                                    self.bebida_1=0
+                                    self.bebida_2=0
+                                    self.bebida_3=0
+                                    self.bebida_4=0
+                                    self.bebida_5=0
+                                    self.tela_certa=3
+                                else:
+                                    print("Nada deu certo")
+                                    self.bebida_1=0
+                                    self.bebida_2=0
+                                    self.bebida_3=0
+                                    self.bebida_4=0
+                                    self.bebida_5=0
 
-                if mouse == (1,0,0):
-                    for x in range(5):
-                        if mousepos[0]>self.lista_lugares[x][0] and mousepos[0]<self.lista_lugares[x][0]+tamanhos[x][0]:
-                            if mousepos[1]>self.lista_lugares[x][1] and mousepos[1]<self.lista_lugares[x][1]+tamanhos[x][1]:
-                                if self.primeiro == True:
-                                    self.diferenca = [mousepos[0]-self.lista_lugares[x][0],mousepos[1]-self.lista_lugares[x][1]]
-                                    self.primeiro = False
-                                    self.musica_bebida=x
-                                self.carregando = True
-                else:
-                    if self.primeiro == False:
-                        self.lista_lugares = [[480,280],[540,292],[590,300],[635,290],[665,310]]
-                        if (mousepos[0]>458 and mousepos[0]<564) and (mousepos[1]>410 and mousepos[1]<546):
-                            if self.musica_bebida == 0 and self.mistura.count(0)<9:
-                                pygame.mixer.Sound.play(a)
-                                self.bebida_1+=1
-                            elif self.musica_bebida == 1 and self.mistura.count(1)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_2+=1
-                            elif self.musica_bebida == 2 and self.mistura.count(2)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_3+=1
-                            elif self.musica_bebida == 3 and self.mistura.count(3)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_4+=1
-                            elif self.musica_bebida == 4 and self.mistura.count(4)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_5+=1
+                                    pygame.display.update()  
+                                    self.tela_certa=4
+                                pygame.display.update()  
+                            if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
+                                if mousepos[1]>90 and mousepos[1]<90+50:
+                                    self.bebida_1=0
+                                    self.bebida_2=0
+                                    self.bebida_3=0
+                                    self.bebida_4=0
+                                    self.bebida_5=0
+                    pygame.display.update()  
+                    if mouse == (1,0,0):
+                        for x in range(5):
+                            if mousepos[0]>self.lista_lugares[x][0] and mousepos[0]<self.lista_lugares[x][0]+tamanhos[x][0]:
+                                if mousepos[1]>self.lista_lugares[x][1] and mousepos[1]<self.lista_lugares[x][1]+tamanhos[x][1]:
+                                    if self.primeiro == True:
+                                        self.diferenca = [mousepos[0]-self.lista_lugares[x][0],mousepos[1]-self.lista_lugares[x][1]]
+                                        self.primeiro = False
+                                        self.musica_bebida=x
+                                    self.carregando = True
+                    else:
+                        if self.primeiro == False:
+                            self.lista_lugares = [[480,280],[540,292],[590,300],[635,290],[665,310]]
+                            if (mousepos[0]>458 and mousepos[0]<564) and (mousepos[1]>410 and mousepos[1]<546):
+                                if self.musica_bebida == 0 and self.mistura.count(0)<9:
+                                    pygame.mixer.Sound.play(a)
+                                    self.bebida_1+=1
+                                elif self.musica_bebida == 1 and self.mistura.count(1)<9:
+                                    pygame.mixer.Sound.play(b)
+                                    self.bebida_2+=1
+                                elif self.musica_bebida == 2 and self.mistura.count(2)<9:
+                                    pygame.mixer.Sound.play(b)
+                                    self.bebida_3+=1
+                                elif self.musica_bebida == 3 and self.mistura.count(3)<9:
+                                    pygame.mixer.Sound.play(b)
+                                    self.bebida_4+=1
+                                elif self.musica_bebida == 4 and self.mistura.count(4)<9:
+                                    pygame.mixer.Sound.play(b)
+                                    self.bebida_5+=1
 
-                    self.primeiro = True
-                    self.carregando = False
-            
+                                self.primeiro = True
+                                self.carregando = False
+                
 
-                if self.carregando == True:
+                    if self.carregando == True:
                         self.lista_lugares[self.musica_bebida][0]=mousepos[0]-self.diferenca[0]
                         self.lista_lugares[self.musica_bebida][1]=mousepos[1]-self.diferenca[1]
-
-                if self.menu == False:
-                    self.draw()
+                pygame.display.update()  
 
             if self.menu == True:
-                    classepersonagem= Personagem()
-                    classe= Personagem()
-                    menuimg = classepersonagem.main()
-                    contadorfixo=5
-                    menubg=menuimg[1]
-                    logo=menuimg[2]
-                    framesanimação=(len(menubg))
-                    text=font.render('Press Space to Start', True, (255, 255, 255))
-
-                    if self.frameinit<framesanimação-1:                
-                        self.frameinit+=1
-                    else:
-                        self.frameinit=0
-                    self.win.blit(menubg[self.frameinit], (0,0))
-                    self.win.blit(logo[self.frameinit], (320,100))
-                    self.win.blit(text,(ALTURA//2-250,LARGURA//2))
-                
+                classepersonagem= Personagem()
+                menuimg = classepersonagem.main()
+                menubg=menuimg[1]
+                logo=menuimg[2]
+                framesanimação=(len(menubg))
+                text=font.render('Press Space to Start', True, (255, 255, 255))
+                if self.frameinit<framesanimação-1:                
+                    self.frameinit+=1
+                else:
+                    self.frameinit=0
+                self.win.blit(menubg[self.frameinit], (0,0))
+                self.win.blit(logo[self.frameinit], (320,100))
+                self.win.blit(text,(ALTURA//2-250,LARGURA//2))
+            if self.menu == False:
+                self.draw()
+            pygame.display.update()  
+            self.update()
 
     def draw(self):
         self.win.fill((20,20,180))
@@ -267,11 +258,11 @@ class Jogo(object):
         self.win.blit(quadrado_quant,(tamanhos_quad[4]))
         self.win.blit(mandar,(10,30))
         self.win.blit(reset,(10,90))
-        self.win.blit(salty,(self.lista_lugares[0]))
-        self.win.blit(candy,(self.lista_lugares[1]))
-        self.win.blit(sour,(self.lista_lugares[2]))
-        self.win.blit(hot,(self.lista_lugares[3]))
-        self.win.blit(tasty,(self.lista_lugares[4]))
+        self.win.blit(salty,(tamanhos_quad[0][0]+20,tamanhos_quad[0][1]+10))
+        self.win.blit(candy,(tamanhos_quad[1][0]+20,tamanhos_quad[1][1]+10))
+        self.win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
+        self.win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
+        self.win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
         text=font.render(str(self.bebida_1), True, (255, 255, 255))
         self.win.blit(text,(tamanhos_quad[0][0]+75,tamanhos_quad[0][1]+70))
 
@@ -283,10 +274,17 @@ class Jogo(object):
 
         text4=font.render(str(self.bebida_4), True, (255, 255, 255))
         self.win.blit(text4,(tamanhos_quad[3][0]+75,tamanhos_quad[3][1]+70))
-
+        
         text5=font.render(str(self.bebida_5), True, (255, 255, 255))
+        self.win.blit(moeda,(1050,20))
+        img_bebidas_sucedidas = font.render(str(self.bebidas_sucedidas), True, (255,255,255))
+        self.win.blit(img_bebidas_sucedidas,(1110,25))
         self.win.blit(text5,(tamanhos_quad[4][0]+75,tamanhos_quad[4][1]+70))
-
+        self.win.blit(salty,(self.lista_lugares[0]))
+        self.win.blit(candy,(self.lista_lugares[1]))
+        self.win.blit(sour,(self.lista_lugares[2]))
+        self.win.blit(hot,(self.lista_lugares[3]))
+        self.win.blit(tasty,(self.lista_lugares[4]))
         if self.tela_certa!=0:
             if self.tela_certa==1:
                 self.win.blit(tela_sea,(LARGURA//2-100,ALTURA//2-300))
@@ -299,27 +297,14 @@ class Jogo(object):
             for event in pygame.event.get() : 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     self.tela_certa=0
-                    
-
-
-        self.win.blit(salty,(tamanhos_quad[0][0]+20,tamanhos_quad[0][1]+10))
-        self.win.blit(candy,(tamanhos_quad[1][0]+20,tamanhos_quad[1][1]+10))
-        self.win.blit(sour,(tamanhos_quad[2][0]+25,tamanhos_quad[2][1]+20))
-        self.win.blit(hot,(tamanhos_quad[3][0]+40,tamanhos_quad[3][1]+10))
-        self.win.blit(tasty,(tamanhos_quad[4][0]+25,tamanhos_quad[4][1]+20))
+        
         classepersonagem= Personagem()
-<<<<<<< HEAD
         magalista = classepersonagem.main()
         maga=magalista[0]
         if self.ponto_de_parada!=0 and self.ativar_dialogo == True:
-=======
-        maga = classepersonagem.main()
-
-        if self.ponto_de_parada==1:
->>>>>>> parent of b9fcc39... historia e moeda
             classe=Historia(self.ponto_de_parada,1,1)
             texto1=classe.historia(self.ponto_de_parada)
-            contadorfixo=15
+            contadorfixo=5
             framesanimação=(len(maga))
             if self.tempo_dialogo>5*self.tempo or self.tempo_dialogo==0:
                 if self.frameinit<framesanimação-1:                
@@ -328,12 +313,11 @@ class Jogo(object):
                     self.frameinit=0
                 self.win.blit(maga[self.frameinit], (100,325))
             if (len(texto1)*contadorfixo<=self.tempo*contadorfixo) and self.botao_pressionado == True:
-                self.ponto_de_parada=0
                 self.tempo=0
                 self.tempo_dialogo=0
                 self.relogio=1
                 self.texto_anterior="-"
-                self.ponto_de_parada=0
+                self.ativar_dialogo = False
             if len(texto1)*contadorfixo>self.tempo*contadorfixo:
                 self.tempo_dialogo+=5
                 contador=self.relogio
