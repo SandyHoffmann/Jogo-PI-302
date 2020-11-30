@@ -1,10 +1,10 @@
+#Importações do python e do próprio jogo
 import pygame
 from historia import Historia
-import textboxify
 from personagem import Personagem
-from parametros import Grupo_Parametros
 import random
 
+#Variaveis globais
 pygame.init()
 ALTURA=1200
 LARGURA=800
@@ -22,8 +22,8 @@ mandar=pygame.image.load("imagens/mandar.png")
 white = (255, 255, 255) 
 font = pygame.font.Font("fontes/ka1.ttf", 25)
 display_surface = pygame.display.set_mode((ALTURA, LARGURA )) 
-b = pygame.mixer.Sound("sons/sound0.ogg")
-a = pygame.mixer.Sound("sons/sound.ogg")
+som_bebida = pygame.mixer.Sound("sons/sound0.ogg")
+som_bebida_2 = pygame.mixer.Sound("sons/sound.ogg")
 tela_sea=pygame.image.load("imagens/seawater.png")
 tela_heavy=pygame.image.load("imagens/heavydrink.png")
 tela_sugar=pygame.image.load("imagens/sugarrush.png")
@@ -34,7 +34,7 @@ mouse = pygame.mouse.get_pressed()
 
 
 class Jogo(object):
-
+#Variaveis da classe
     def __init__(self,ALTURA,LARGURA):
         self.altura=ALTURA
         self.largura=LARGURA
@@ -58,36 +58,32 @@ class Jogo(object):
         self.texto_anterior="-"
         self.botao_pressionado = False
         self.frameinit=0
-        self.classe_parametros = Grupo_Parametros(0,0,0)
         self.quantidade_bebidas = 0   
         self.ativar_dialogo = True    
         self.bebidas_sucedidas = 0
         self.menu = True   
-
+#Função necessária para as funções básicas
     def main(self):
         display_surface = pygame.display.set_mode((self.altura, self.largura)) 
         self.win=pygame.display.set_mode((self.altura,self.largura))
-        pygame.display.set_caption("alo")
+        pygame.display.set_caption("Bartender Cat Club")
         self.update()
-    
+#Função que ativa todo momento e que confere todas as condições para o jogo acontecer
     def update(self):
-        while True:
-            mouse = pygame.mouse.get_pressed()
-            mousepos=pygame.mouse.get_pos()
-            for event in pygame.event.get() :
-
-                if event.type == pygame.QUIT : 
-                    pygame.quit() 
-                    quit()  
-                if event.type == pygame.KEYDOWN: 
-                    if event.key == pygame.K_SPACE:
-                        self.menu=False
-                        print("a")
-
-                elif self.menu==False:
+            if self.menu == False:
+                for event in pygame.event.get():
+                    mouse = pygame.mouse.get_pressed()
+                    mousepos=pygame.mouse.get_pos()
+                    if event.type == pygame.QUIT : 
+                        pygame.quit() 
+                        quit()  
+                    if event.type == pygame.KEYDOWN: 
+                        if event.key == pygame.K_SPACE:
+                            self.menu=False
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         self.botao_pressionado = True
-                    
+                        
+                    #Conferir qual combinação de bebida foi colocada
                     elif event.type != pygame.MOUSEBUTTONDOWN:        
                         self.botao_pressionado = False
                     if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
@@ -97,7 +93,6 @@ class Jogo(object):
                             if self.quantidade_bebidas == 1:
                                 self.ponto_de_parada = random.randrange(1,4)
                             if self.bebida_1>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.6): 
-                                print("Sea Water")
                                 self.bebida_1=0
                                 self.bebida_2=0
                                 self.bebida_3=0
@@ -107,11 +102,7 @@ class Jogo(object):
                                 if self.ponto_de_parada == 1:
                                     self.ponto_de_parada = random.randrange(1,4)
                                     self.bebidas_sucedidas +=1
-                                self.classe_parametros.set_clerigo(2)
-                                self.classe_parametros.get_clerigo()
-                                print(str(self.classe_parametros.get_clerigo()))
                             elif self.bebida_3>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2) and self.bebida_4>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.2): 
-                                print("Heavy Drink")
                                 self.bebida_1=0
                                 self.bebida_2=0
                                 self.bebida_3=0
@@ -122,7 +113,6 @@ class Jogo(object):
                                     self.ponto_de_parada = random.randrange(1,4)
                                     self.bebidas_sucedidas +=1
                             elif self.bebida_2>((self.bebida_1+self.bebida_2+self.bebida_3+self.bebida_4+self.bebida_5)*0.8): 
-                                print("Sugar Rush")
                                 self.bebida_1=0
                                 self.bebida_2=0
                                 self.bebida_3=0
@@ -133,81 +123,81 @@ class Jogo(object):
                                     self.ponto_de_parada = random.randrange(1,4)
                                     self.bebidas_sucedidas +=1
                             else:
-                                print("Nada deu certo")
                                 self.bebida_1=0
                                 self.bebida_2=0
                                 self.bebida_3=0
                                 self.bebida_4=0
                                 self.bebida_5=0
                                 self.tela_certa=4
-                        
-                        if mousepos[1]>90 and mousepos[1]<90+50:
-                            self.bebida_1=0
-                            self.bebida_2=0
-                            self.bebida_3=0
-                            self.bebida_4=0
-                            self.bebida_5=0
-                pygame.display.update()  
-
-                if mouse == (1,0,0):
-                    for x in range(5):
-                        if mousepos[0]>self.lista_lugares[x][0] and mousepos[0]<self.lista_lugares[x][0]+tamanhos[x][0]:
-                            if mousepos[1]>self.lista_lugares[x][1] and mousepos[1]<self.lista_lugares[x][1]+tamanhos[x][1]:
-                                if self.primeiro == True:
-                                    self.diferenca = [mousepos[0]-self.lista_lugares[x][0],mousepos[1]-self.lista_lugares[x][1]]
-                                    self.primeiro = False
-                                    self.musica_bebida=x
-                                self.carregando = True
-                else:
-                    if self.primeiro == False:
-                        self.lista_lugares = [[480,280],[540,292],[590,300],[635,290],[665,310]]
-                        if (mousepos[0]>458 and mousepos[0]<564) and (mousepos[1]>410 and mousepos[1]<546):
-                            if self.musica_bebida == 0 and self.mistura.count(0)<9:
-                                pygame.mixer.Sound.play(a)
-                                self.bebida_1+=1
-                            elif self.musica_bebida == 1 and self.mistura.count(1)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_2+=1
-                            elif self.musica_bebida == 2 and self.mistura.count(2)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_3+=1
-                            elif self.musica_bebida == 3 and self.mistura.count(3)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_4+=1
-                            elif self.musica_bebida == 4 and self.mistura.count(4)<9:
-                                pygame.mixer.Sound.play(b)
-                                self.bebida_5+=1
-
-                    self.primeiro = True
-                    self.carregando = False
-            
-
-                if self.carregando == True:
-                        self.lista_lugares[self.musica_bebida][0]=mousepos[0]-self.diferenca[0]
-                        self.lista_lugares[self.musica_bebida][1]=mousepos[1]-self.diferenca[1]
-
-                if self.menu == False:
-                    self.draw()
-
-            if self.menu == True:
-                    classepersonagem= Personagem()
-                    classe= Personagem()
-                    menuimg = classepersonagem.main()
-                    contadorfixo=5
-                    menubg=menuimg[1]
-                    logo=menuimg[2]
-                    framesanimação=(len(menubg))
-                    text=font.render('Press Space to Start', True, (255, 255, 255))
-
-                    if self.frameinit<framesanimação-1:                
-                        self.frameinit+=1
+                    
+                        if mousepos[0]>10 and mousepos[0]<10+100 and self.botao_pressionado == True:
+                            if mousepos[1]>90 and mousepos[1]<90+50:
+                                self.bebida_1=0
+                                self.bebida_2=0
+                                self.bebida_3=0
+                                self.bebida_4=0
+                                self.bebida_5=0
+                    #Conferir se o mause está segurando uma bebida
+                    if mouse == (1,0,0):
+                        for x in range(5):
+                            if mousepos[0]>self.lista_lugares[x][0] and mousepos[0]<self.lista_lugares[x][0]+tamanhos[x][0]:
+                                if mousepos[1]>self.lista_lugares[x][1] and mousepos[1]<self.lista_lugares[x][1]+tamanhos[x][1]:
+                                    if self.primeiro == True:
+                                        self.diferenca = [mousepos[0]-self.lista_lugares[x][0],mousepos[1]-self.lista_lugares[x][1]]
+                                        self.primeiro = False
+                                        self.musica_bebida=x
+                                    self.carregando = True
                     else:
-                        self.frameinit=0
-                    self.win.blit(menubg[self.frameinit], (0,0))
-                    self.win.blit(logo[self.frameinit], (320,100))
-                    self.win.blit(text,(ALTURA//2-250,LARGURA//2))
+                        if self.primeiro == False:
+                            self.lista_lugares = [[480,280],[540,292],[590,300],[635,290],[665,310]]
+                            if (mousepos[0]>458 and mousepos[0]<564) and (mousepos[1]>410 and mousepos[1]<546):
+                                pygame.mixer.Sound.play(som_bebida)
+                                if self.musica_bebida == 0 and self.mistura.count(0)<9:
+                                    self.bebida_1+=1
+                                elif self.musica_bebida == 1 and self.mistura.count(1)<9:
+                                    self.bebida_2+=1
+                                elif self.musica_bebida == 2 and self.mistura.count(2)<9:
+                                    self.bebida_3+=1
+                                elif self.musica_bebida == 3 and self.mistura.count(3)<9:
+                                    self.bebida_4+=1
+                                elif self.musica_bebida == 4 and self.mistura.count(4)<9:
+                                    self.bebida_5+=1
+                            self.primeiro = True
+                            self.carregando = False
                 
 
+                    if self.carregando == True:
+                        self.lista_lugares[self.musica_bebida][0]=mousepos[0]-self.diferenca[0]
+                        self.lista_lugares[self.musica_bebida][1]=mousepos[1]-self.diferenca[1]
+                        
+                
+            #menu inicial
+            if self.menu == True:
+                classepersonagem= Personagem()
+                menuimg = classepersonagem.main()
+                menubg=menuimg[1]
+                logo=menuimg[2]
+                framesanimação=(len(menubg))
+                text=font.render('Press Space to Start', True, (255, 255, 255))
+                if self.frameinit<framesanimação-1:                
+                    self.frameinit+=1
+                else:
+                    self.frameinit=0
+                self.win.blit(menubg[self.frameinit], (0,0))
+                self.win.blit(logo[self.frameinit], (320,100))
+                self.win.blit(text,(ALTURA//2-250,LARGURA//2))
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT : 
+                        pygame.quit() 
+                        quit()  
+                    if event.type == pygame.KEYDOWN: 
+                        if event.key == pygame.K_SPACE:
+                            self.menu=False
+            if self.menu == False:
+                self.draw()
+            pygame.display.update()  
+            self.update()
+    #Função que desenha na tela
     def draw(self):
         self.win.fill((20,20,180))
         self.win.blit(background,(0,0))

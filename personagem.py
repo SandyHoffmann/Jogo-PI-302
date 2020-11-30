@@ -44,7 +44,7 @@ class Personagem(pygame.sprite.Sprite):
 
     def main(self):
         pygame.init()
-        return self.imagem_maga,self.menu,self.logo
+        return [self.imagem_maga,self.menu,self.logo]
     def logo(self):
         pygame.init()
         return self.logo
